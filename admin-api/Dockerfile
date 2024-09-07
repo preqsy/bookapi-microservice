@@ -1,20 +1,17 @@
 FROM python:3.10-slim
 
-
 WORKDIR /app
 
-
-COPY poetry.lock pyproject.toml ./
-
+COPY admin-api/poetry.lock admin-api/pyproject.toml ./
 
 RUN pip install --upgrade pip && \
     pip install poetry
 
-
-COPY . .
-
+COPY admin-api ./
 
 RUN poetry install --no-root
+
+RUN poetry show 
 
 EXPOSE 8000
 

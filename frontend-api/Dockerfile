@@ -1,20 +1,17 @@
 FROM python:3.10-slim
 
-
 WORKDIR /app
 
-
-COPY poetry.lock pyproject.toml ./
-
+COPY frontend-api/poetry.lock frontend-api/pyproject.toml ./
 
 RUN pip install --upgrade pip && \
     pip install poetry
 
-
-COPY . .
-
+COPY frontend-api ./
 
 RUN poetry install --no-root
+
+RUN poetry show 
 
 EXPOSE 8001
 

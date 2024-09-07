@@ -1,8 +1,8 @@
 from datetime import date, datetime
 from enum import Enum
 from typing import ClassVar, Optional
-from pydantic import BaseModel, model_validator, conint
-from core.errors import InvalidRequest
+
+from pydantic import BaseModel, conint
 
 
 class Categories(str, Enum):

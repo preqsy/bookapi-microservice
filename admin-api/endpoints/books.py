@@ -1,6 +1,9 @@
+import requests
 from datetime import date, timedelta
 from typing import List, Optional
+
 from fastapi import Depends, status, APIRouter
+
 from schemas.books import (
     BookCreate,
     BookOut,
@@ -15,6 +18,26 @@ from crud import CRUDBook, get_crud_book, get_crud_borrowed_book, CRUDBorrowBook
 from core.errors import MissingResources, InvalidRequest
 
 router = APIRouter(prefix="/books")
+
+
+@router.get("/users")
+async def list_all_users():
+    users = requests.get("http://frontend_web:8001/auth/users")
+    return users.json()
+
+
+@router.get("/users-books")
+async def list_all_users_and_borrowed_books(
+    crud_borrowed_book: CRUDBorrowBook = Depends(get_crud_borrowed_book),
+):
+    users = requests.get("http://frontend_web:8001/auth/users")
+    users_id = [user["id"] for user in users.json()]
+    users_and_borrowed_book = [
+        crud_borrowed_book.get_user_borrowed_books(user_id=user_id)
+        for user_id in users_id
+    ]
+
+    return users_and_borrowed_book
 
 
 @router.post("/", response_model=BookOut, status_code=status.HTTP_201_CREATED)
@@ -82,7 +105,7 @@ def filter_books_by_category(
 
 
 @router.post("/publisher", response_model=List[BookOut])
-def filter_books_by_category(
+def filter_books_by_publisher(
     book_publisher: SearchPublisher,
     crud_book: CRUDBook = Depends(get_crud_book),
     limit: Optional[int] = 10,

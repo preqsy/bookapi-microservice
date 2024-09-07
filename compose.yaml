@@ -32,10 +32,14 @@ services:
       dockerfile: frontend-api/Dockerfile
     ports:
       - "8001:8001"
-    env_file:
-      - frontend-api/.env
+    environment:
+      JWT_SECRET_KEY: your_jwt_secret_key
+      SQLALCHEMY_DATABASE_URL: postgresql://root:rootpassword@frontend_db:5432/book_frontend
+      TEST_SQLALCHEMY_DATABASE_URL: postgresql://root:rootpassword@frontend_db:5432/book_frontend_test
+      ALGORITHM: HS256
     depends_on:
       - frontend_db
+
   # Admin API web service
   admin_web:
     build:
@@ -43,8 +47,11 @@ services:
       dockerfile: admin-api/Dockerfile
     ports:
       - "8000:8000"
-    env_file:
-      - admin-api/.env
+    environment:
+      JWT_SECRET_KEY: lohuhns
+      SQLALCHEMY_DATABASE_URL: postgresql://root:rootpassword@admin_db:5432/book_admin
+      TEST_SQLALCHEMY_DATABASE_URL: postgresql://root:rootpassword@admin_db:5432/book_admin_test
+      ALGORITHM: HS256
     depends_on:
       - admin_db
 

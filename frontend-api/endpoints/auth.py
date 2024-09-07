@@ -8,7 +8,7 @@ from schemas import (
 )
 
 from crud import CRUDAuthUser, get_crud_auth_user
-from core.errors import ResourcesExist, InvalidRequest
+from core.errors import ResourcesExist, InvalidRequest, MissingResources
 from core.tokens import generate_access_token
 
 from utils.password_utils import hash_password, verify_password
@@ -61,8 +61,11 @@ async def login_user(
 
 @router.get("/users", status_code=status.HTTP_200_OK)
 async def get_users(
-    skip: int,
-    limit: int,
+    skip: int = 0,
+    limit: int = 10,
     crud_auth_user: CRUDAuthUser = Depends(get_crud_auth_user),
 ):
-    return crud_auth_user.list_users()
+    users = crud_auth_user.list_users()
+    if not users:
+        raise MissingResources("No users found")
+    return users
