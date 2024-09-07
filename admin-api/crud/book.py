@@ -19,7 +19,7 @@ class CRUDBook:
                 (self.model.title.contains(search.upper()))
                 | (self.model.author.contains(search.lower()))
             )
-            .filter(self.model.available == True)
+            .filter(self.model.is_available == True)
             .limit(limit)
             .all()
         )
