@@ -1,3 +1,5 @@
+Here's the updated documentation with the link to the Postman collection:
+
 # Library Management API
 
 This project is a library management system designed to allow users to browse the catalog of books, borrow them, and manage library operations. It consists of two independent API services: a Frontend API for users and a Backend/Admin API for administrators.
@@ -83,6 +85,7 @@ This project is a library management system designed to allow users to browse th
    ```
 
 2. **Add Your Test Database URL**:
+   Update the `.env` file with your test database URL if necessary.
 
 3. **Run the tests**:
    ```sh
@@ -107,17 +110,27 @@ This project is a library management system designed to allow users to browse th
    - Frontend API: `http://localhost:8001`
    - Admin API: `http://localhost:8000`
 
+## API Documentation
+
+For detailed API endpoints and how to use them, you can download the Postman collection:
+
+[Download Postman Collection](https://github.com/preqsy/bookapi-microservice/blob/main/BookApp.postman_collection.json)
+
 ## Project Structure
 
 ```
 bookapplication/
 ├── admin-api/              # Admin API service
 │   ├── endpoints/          # Admin API endpoints
+│   ├── core/               # Admin Core functionality
+│   ├── crud/               # Admin CRUD functionality
 │   ├── models/             # Admin API models
 │   ├── schemas/            # Admin API schemas
 │   └── main.py             # Admin API entry point
 ├── frontend-api/           # Frontend API service
 │   ├── endpoints/          # Frontend API endpoints
+│   ├── core/               # Frontend Core Functionality
+│   ├── crud/               # Frontend CRUD Functionality
 │   ├── models/             # Frontend API models
 │   ├── schemas/            # Frontend API schemas
 │   └── main.py             # Frontend API entry point
