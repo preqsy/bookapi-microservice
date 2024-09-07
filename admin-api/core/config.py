@@ -5,6 +5,8 @@ path = Path.cwd()
 env_path = path / ".env"
 
 
+# Add your details here 👇 if you choose to run without docker
+# for testing(pytest) you must have your details here or create a .env in the root directory
 class Settings(BaseSettings):
     SQLALCHEMY_DATABASE_URL: str
     TEST_SQLALCHEMY_DATABASE_URL: str
