@@ -1,4 +1,3 @@
-Here's the updated documentation with the link to the Postman collection:
 
 # Library Management API
 
