@@ -36,15 +36,9 @@ class CRUDBorrowBook:
 
         return borrowed_book
 
-    def get_user_borrowed_books(db: Session, user_id: int):
-        return db.query(BorrowedBook).filter(BorrowedBook.user_id == user_id).all()
-
-    def get_books_not_available(db: Session):
+    def get_user_borrowed_books(self, user_id: int):
         return (
-            db.query(Book)
-            .join(BorrowedBook, Book.id == BorrowedBook.book_id)
-            .filter(Book.available == False)
-            .all()
+            self._db.query(BorrowedBook).filter(BorrowedBook.user_id == user_id).all()
         )
 
 

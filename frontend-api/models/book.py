@@ -17,4 +17,3 @@ class Book(Base):
     status = Column(Boolean, nullable=False, server_default="TRUE")
     categories = Column(String, nullable=False)
     is_deleted = Column(Boolean, nullable=False, server_default="FALSE")
-    owner = relationship("Users")

@@ -1,12 +1,7 @@
 from fastapi import Depends
 from pydantic import EmailStr
 from sqlalchemy.orm import Session
-from core.db import get_db
-from models import AuthUser
 
-
-from fastapi import Depends
-from pydantic import EmailStr
 from core.db import get_db
 from models import AuthUser
 
@@ -22,12 +17,6 @@ class CRUDAuthUser:
         )
         return email_query if email_query else None
 
-    def get_by_username(self, username: str) -> bool:
-        username_query = (
-            self._db.query(self.model).filter(self.model.username == username).first()
-        )
-        return bool(username_query)
-
     def create_user(self, data_obj):
         new_user = self.model(**data_obj.model_dump())
         self._db.add(new_user)
@@ -42,7 +31,3 @@ class CRUDAuthUser:
 
 def get_crud_auth_user(db=Depends(get_db)):
     return CRUDAuthUser(db=db)
-
-
-# def get_crud_auth_user(db=Depends(get_db)):
-#     return CRUDAuthUser(db=db)
